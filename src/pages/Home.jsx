@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { IoMdSend } from "react-icons/io";
 import GitHubProfile from "../components/GitHubProfile";
+import { FaSearch } from "react-icons/fa";
 
 const Home = () => {
   const [search, setSearch] = useState("");
@@ -43,25 +43,30 @@ const Home = () => {
   return (
     <div className="home-container">
       <div className="search-form">
-        <input
-          type="text"
-          required
-          value={search}
-          placeholder="search user of GitHub..."
-          onChange={(e) => setSearch(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === "Enter") {
-              if (e.target.value.trim() === "") {
-                setShowProfile(false);
-              } else {
-                handleSearchByEnterKey();
+        <div className="search-box">
+          <input
+            type="text"
+            name="search"
+            id="search"
+            placeholder="search github user..."
+            autoComplete
+            required
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                if (e.target.value.trim() === "") {
+                  setShowProfile(false);
+                } else {
+                  handleSearchByEnterKey();
+                }
               }
-            }
-          }}
-        />
-        <button type="submit" onClick={handleSubmit}>
-          <IoMdSend />
-        </button>
+            }}
+          />
+          <div className="search-icon">
+            <FaSearch onClick={handleSearchByEnterKey} />
+          </div>
+        </div>
       </div>
       {showProfile && (
         <div className="user-details">

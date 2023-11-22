@@ -24,6 +24,22 @@ const Home = () => {
       console.log(error.message);
     }
   };
+
+  const handleSearchByEnterKey = async () => {
+    try {
+      const profile = await fetch(`https://api.github.com/users/${search}`);
+      const profileJson = await profile.json();
+      const repositories = await fetch(profileJson.repos_url);
+      const repoJson = await repositories.json();
+      if (profileJson) {
+        setGithubProfile(profileJson);
+        setRepositories(repoJson);
+      }
+      setShowProfile(true);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <div className="home-container">
       <div className="search-form">
@@ -34,8 +50,12 @@ const Home = () => {
           placeholder="search user of GitHub..."
           onChange={(e) => setSearch(e.target.value)}
           onKeyDown={(e) => {
-            if (e.target.value.trim() === "") {
-              setShowProfile(false);
+            if (e.key === "Enter") {
+              if (e.target.value.trim() === "") {
+                setShowProfile(false);
+              } else {
+                handleSearchByEnterKey();
+              }
             }
           }}
         />

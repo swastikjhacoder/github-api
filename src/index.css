@@ -143,6 +143,11 @@ header {
   gap: 20px;
 }
 
+.profile-details{
+  display: flex;
+  justify-content: space-between;
+}
+
 .repositories {
   display: flex;
   flex-direction: column;
